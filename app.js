@@ -72,25 +72,15 @@ const deck = [
 const randomDeck1Loop = ()=>{
     for (let i = 0; i < deck.length; i ++){
         let index = (Math.floor(Math.random()* deck.length));
-        // console.log(deck[index])
         randomCardArr.push(deck[index])
     }
 }
 
 const drawCardPlayer1 = ()=>{
     player1 = randomCardArr.splice(0,15);
-    // console.log(player1);
-
-    // console.log(`this is player 1 deck ${player1[0].name}`);
-    // console.log(`this is player 1 deck ${player1[0].attack}`);
-    // console.log('--------------');
 }
 const drawCardPlayer2 = () =>{
     player2 = randomCardArr.splice(0,15);
-    // console.log(player2);
-
-    // console.log(`this is player 2 deck ${player2[0].name}`);
-    // console.log(`this is player 2 deck ${player2[0].attack}`)
 }
 const winOrLose = () =>{
     if(player1[0].attack > player2[0].attack){
@@ -107,32 +97,24 @@ const wonCards = () =>{
     if(player1[0].attack > player2[0].attack){
         holdingDeck = player2[0]
         player2.shift()
-        // console.log(holdingDeck)
         player1.push(holdingDeck)
         let winningCard = player1.shift()
         player1.push(winningCard)
-        // console.log(player1)
-        // console.log('-----------');
         player1.push(...drawDeck)
-        }else if(player2[0].attack > player1[0].attack){
-            holdingDeck = player1[0]
-            player1.shift()
-            // console.log(holdingDeck)
-            player2.push(holdingDeck)
-            let winningCard = player2.shift()
-            player2.push(winningCard)
-            // console.log(player2)
-            // console.log('-----------');
-            player2.push(...drawDeck)
+    }else if(player2[0].attack > player1[0].attack){
+        holdingDeck = player1[0]
+        player1.shift()
+        player2.push(holdingDeck)
+        let winningCard = player2.shift()
+        player2.push(winningCard)
+        player2.push(...drawDeck)
+    }else{
+        let player1Card = player1.shift()
+        drawDeck.push(player1Card)
+        let player2Card = player2.shift()
+        drawDeck.push(player2Card)
             
-
-        }else{
-            let player1Card = player1.shift()
-            drawDeck.push(player1Card)
-            let player2Card = player2.shift()
-            drawDeck.push(player2Card)
-            
-        }
+    }
         
 
     console.log('p1');
@@ -144,26 +126,13 @@ const wonCards = () =>{
 }
 drawDeck = [];
 
-
-
 randomDeck1Loop()
-    
-    
 drawCardPlayer1()
-
-
 drawCardPlayer2()
 
 duelButton.addEventListener('click', () =>{
    
-  
-    
-    
-    winOrLose()
-
-    wonCards()
-
-    
-    
+winOrLose()
+wonCards()
 })
 
