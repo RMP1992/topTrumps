@@ -1,6 +1,9 @@
+const duelButton  =document.getElementById('button');
 let randomCardArr = [];
-let player1;   
-let player2;
+let player1 =[];   
+let player2 =[];
+let drawDeck = [];
+let holdingDeck;
 
 
 class Card  {
@@ -66,23 +69,6 @@ const deck = [
     new Card("Liamon", 560, 300, 3000, 5, 1),
 ]
 
-// const deck2 = [
-//     new Card("Myotismon", 510),
-//     new Card("Piedmon", 530),
-//     new Card("Puppetmon", 500),
-//     new Card("Ladydevimon", 520),
-//     new Card("Weregarurumon", 530),
-//     new Card("Lynxmon", 480),
-//     new Card("Quetzalmon", 470),
-//     new Card("Phoenixmon", 530),
-//     new Card("Exveemon", 460),
-//     new Card("Ofanimon", 540),
-//     new Card("Gatomon", 400),
-//     new Card("Nefertimon", 470),
-//     new Card("Pagasusmon", 420),
-//     new Card("Kyubimon", 450),
-//     new Card("Sakuyamon", 600)
-// ]
 const randomDeck1Loop = ()=>{
     for (let i = 0; i < deck.length; i ++){
         let index = (Math.floor(Math.random()* deck.length));
@@ -90,84 +76,94 @@ const randomDeck1Loop = ()=>{
         randomCardArr.push(deck[index])
     }
 }
-randomDeck1Loop()
 
 const drawCardPlayer1 = ()=>{
     player1 = randomCardArr.splice(0,15);
     // console.log(player1);
 
-    console.log(`this is player 1 deck ${player1[0].name}`);
-    console.log(`this is player 1 deck ${player1[0].attack}`);
-    console.log('--------------');
+    // console.log(`this is player 1 deck ${player1[0].name}`);
+    // console.log(`this is player 1 deck ${player1[0].attack}`);
+    // console.log('--------------');
 }
-drawCardPlayer1()
-
 const drawCardPlayer2 = () =>{
     player2 = randomCardArr.splice(0,15);
     // console.log(player2);
 
-    console.log(`this is player 2 deck ${player2[0].name}`);
-    console.log(`this is player 2 deck ${player2[0].attack}`)
+    // console.log(`this is player 2 deck ${player2[0].name}`);
+    // console.log(`this is player 2 deck ${player2[0].attack}`)
 }
-drawCardPlayer2()
-
 const winOrLose = () =>{
     if(player1[0].attack > player2[0].attack){
-        console.log('player 1 wins')
-    }
-    else{
-        console.log('player 2 wins')
+        console.log('Player 1 wins')
+    }else if(player1[0].attack < player2[0].attack){
+        console.log('Player 2 wins')
+    }else{
+        console.log('draw')
+        
     }
 }
-winOrLose()
+const wonCards = () =>{
+    
+    if(player1[0].attack > player2[0].attack){
+        holdingDeck = player2[0]
+        player2.shift()
+        // console.log(holdingDeck)
+        player1.push(holdingDeck)
+        let winningCard = player1.shift()
+        player1.push(winningCard)
+        // console.log(player1)
+        // console.log('-----------');
+        player1.push(...drawDeck)
+        }else if(player2[0].attack > player1[0].attack){
+            holdingDeck = player1[0]
+            player1.shift()
+            // console.log(holdingDeck)
+            player2.push(holdingDeck)
+            let winningCard = player2.shift()
+            player2.push(winningCard)
+            // console.log(player2)
+            // console.log('-----------');
+            player2.push(...drawDeck)
+            
+
+        }else{
+            let player1Card = player1.shift()
+            drawDeck.push(player1Card)
+            let player2Card = player2.shift()
+            drawDeck.push(player2Card)
+            
+        }
+        
+
+    console.log('p1');
+    console.log(player1);
+    console.log('-----------------');
+    console.log('p2');
+    console.log(player2);
+       
+}
+drawDeck = [];
 
 
-// const randomDeck2Loop = ()=>{
-//     for (let i = 0; i < deck2.length; i ++){
-//         index2 = (Math.floor(Math.random()* deck2.length));
-//         console.log(deck2[index2])
-//         // randomCardArr.push(card.name[randomCard])
-//     }
-// }
+
+randomDeck1Loop()
+    
+    
+drawCardPlayer1()
 
 
+drawCardPlayer2()
 
-// randomDeck2Loop()
+duelButton.addEventListener('click', () =>{
+   
+  
+    
+    
+    winOrLose()
 
+    wonCards()
 
-// const winOrLose = ()=>{
-//     if(deck1 < deck2){
-//         console.log(deck2)
-//     }
-
-// }
-// winOrLose()
-
-
-
-
-
-// console.log(randomDeck1Loop())
-// const deck2 = [
-//     Myotismon = new Card("Myotismon", 510),
-//     Piedmon = new Card("Piedmon", 530),
-//     Puppetmon = new Card("Puppetmon", 500),
-//     Ladydevimon = new Card("Ladydevimon", 520),
-//     Weregarurumon = new Card("Weregarurumon", 530),
-//     Lynxmon = new Card("Lynxmon", 480),
-//     Quetzalmon = new Card("Quetzalmon", 470),
-//     Phoenixmon = new Card("Phoenixmon", 530),
-//     Exveemon = new Card("Exveemon", 460),
-//     Ofanimon = new Card("Ofanimon", 540),
-//     Gatomon = new Card("Gatomon", 400),
-//     Nefertimon = new Card("Nefertimon", 470),
-//     Pegasusmon = new Card("Pagasusmon", 420),
-//     Kyubimon = new Card("Kyubimon", 450),
-//     Sakuyamon = new Card("Sakuyamon", 600)
-// ]
-// // randomDeck1Loop()
-
-// // console.log(deck1[i].randomDeck1Loop())
-// // randomDeck1Loop()
-
+    
+    
+})
 
